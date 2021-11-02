@@ -1,9 +1,11 @@
 const express = require("express");
 
+const db = require("./dbConnectExec.js");
+
 const app = express();
 
 app.listen(5000, () => {
-  console.log("App is running on port 5000");
+  console.log(`App is running on port 5000`);
 });
 
 app.get("/hi", (req, res) => {
@@ -17,3 +19,20 @@ app.get("/", (req, res) => {
 // app.post
 
 // app.put
+
+app.get("/movies", (req, res) => {
+  //get data from the data base
+  db.executeQuery(
+    `SELECT *
+  FROM movie
+  LEFT JOIN Genre 
+  ON genre.GenrePK = movie.GenreFK`
+  )
+    .then((theResults) => {
+      res.status(200).send(theResults);
+    })
+    .catch((myError) => {
+      console.log(myError);
+      res.status(500).send();
+    });
+});
