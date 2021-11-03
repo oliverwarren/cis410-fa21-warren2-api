@@ -24,7 +24,7 @@ app.get("/movies", (req, res) => {
   //get data from the data base
   db.executeQuery(
     `SELECT *
-  FROM movie
+  FROM movies
   LEFT JOIN Genre 
   ON genre.GenrePK = movie.GenreFK`
   )
@@ -33,6 +33,31 @@ app.get("/movies", (req, res) => {
     })
     .catch((myError) => {
       console.log(myError);
+      res.status(500).send();
+    });
+});
+
+app.get("/movies/:pk", (req, res) => {
+  let pk = req.params.pk;
+  console.log(pk);
+  let myQuery = `SELECT *
+  FROM movie
+  LEFT JOIN Genre
+  ON genre.GenrePK = movie.GenreFK
+  WHERE moviePK = ${pk}`;
+
+  db.executeQuery(myQuery)
+    .then((result) => {
+      //console.log("result", result);
+
+      if (result[0]) {
+        res.send(result[0]);
+      } else {
+        res.status(404).send(`bad request`);
+      }
+    })
+    .catch((err) => {
+      console.log("error in ./movies/:pk", err);
       res.status(500).send();
     });
 });

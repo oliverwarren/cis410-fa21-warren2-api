@@ -10,7 +10,5 @@
   "dependencies": {
     "express": "^4.17.1",
     "mssql": "^7.2.1"
-  },
-  "devDependencies": {},
-  "description": ""
+  }
 }
