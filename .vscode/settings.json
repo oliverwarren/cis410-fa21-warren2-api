@@ -1,0 +1,4 @@
+{
+  "appService.defaultWebAppToDeploy": "/subscriptions/8e8d0264-6c69-4107-8401-ac499b199499/resourceGroups/appsvc_linux_centralus/providers/Microsoft.Web/sites/cis410fa21-warren2-api",
+  "appService.deploySubpath": "."
+}
